@@ -11,7 +11,9 @@ class Note extends Model
     use HasFactory;
     protected $fillable = [
         'title',
-        'content'
+        'content',
+        'user_id',
+        'only_author',
     ];
     public function scopeAllowedToSee(Builder $query)
     {
