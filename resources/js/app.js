@@ -4,7 +4,7 @@ import ToastComponent from '../../vendor/usernotnull/tall-toasts/resources/js/ta
 
 Alpine.plugin(ToastComponent)
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("livewire:navigated", function () {
     const sidebar = document.getElementById("sidebar");
     const sidebarToggle = document.getElementById("sidebarToggle");
 

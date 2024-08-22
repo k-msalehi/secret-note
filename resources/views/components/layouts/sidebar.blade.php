@@ -10,28 +10,22 @@
                 </a>
             </li>
             <li>
-            <a wire:navigate href="{{route('notes.index')}}" @class(['active'=> request()->routeIs('notes.*')])>
-            <span class="icon">📝</span>
+                <a wire:navigate href="{{route('notes.index')}}" @class(['active'=> request()->routeIs('notes.*')])>
+                    <span class="icon">📝</span>
                     <span class="label">یادداشت ها</span>
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <span class="icon">⚙️</span>
-                    <span class="label">Settings</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="icon">📊</span>
-                    <span class="label">Reports</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
+                <a href="#!" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <span class="icon">🚪</span>
-                    <span class="label">Logout</span>
+                    <span class="label">
+                        خروج
+                    </span>
                 </a>
+
+                <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                    @csrf
+                </form>
             </li>
         </ul>
     </nav>

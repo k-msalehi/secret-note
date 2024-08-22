@@ -11,9 +11,7 @@
 <body>
     <livewire:toasts />
     <!-- Sidebar -->
-
     <x-layouts.sidebar />
-
     <!-- Main Content -->
     <main class="content">
         <section>
