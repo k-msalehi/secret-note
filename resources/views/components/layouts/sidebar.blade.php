@@ -4,13 +4,13 @@
     <nav>
         <ul>
             <li>
-                <a href="{{route('dashboard')}}" @class(['active'=> request()->routeIs('dashboard')])>
+                <a wire:navigate href="{{route('dashboard')}}" @class(['active'=> request()->routeIs('dashboard')])>
                     <span class="icon">🏠</span>
                     <span class="label">داشبورد</span>
                 </a>
             </li>
             <li>
-            <a href="{{route('dashboard')}}" @class(['active'=> request()->routeIs('notes.*')])>
+            <a wire:navigate href="{{route('notes.index')}}" @class(['active'=> request()->routeIs('notes.*')])>
             <span class="icon">📝</span>
                     <span class="label">یادداشت ها</span>
                 </a>

@@ -8,6 +8,9 @@ class Create extends Component
 {
     public function render()
     {
-        return view('livewire.notes.create');
+        return view('livewire.notes.create')
+            ->layoutData([
+                'title' => 'افزودن یادداشت',
+            ]);
     }
 }

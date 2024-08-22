@@ -199,3 +199,11 @@ h2 {
         justify-content: center;
     }
 }
+
+.content-box {
+    background: white;
+    padding: 6px 14px;
+    border: 1px solid #9b9b9b;
+    border-radius: 7px;
+    direction: ltr;
+}

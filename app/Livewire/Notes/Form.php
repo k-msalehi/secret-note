@@ -3,6 +3,7 @@
 namespace App\Livewire\Notes;
 
 use App\Models\Note;
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Usernotnull\Toast\Concerns\WireToast;
 
@@ -12,23 +13,37 @@ class Form extends Component
 
     public $title;
     public $content;
+    public $head;
+    public $onlyAuthor;
 
-    protected $noteId;
+    #[Locked]
+    public $noteAddr = 0;
+    #[Locked]
+    public $decrypteContent = false;
+
+    public $noteId;
 
     protected $rules = [
         'title' => 'required|string|max:255',
         'content' => 'required|string',
+        'onlyAuthor' => 'nullable|boolean',
+
     ];
 
     public function render()
     {
-        return view('livewire.notes.form')
-            ->with([
-                'head' => $this->noteId ? 'ویرایش یادداشت' : 'افزودن یادداشت',
-            ])
-            ->layoutData([
-                'title' => 'افزودن یادداشت',
-            ]);;
+        if ($this->noteId) {
+            $this->noteAddr = route('notes.show', $this->noteId);
+        }
+        return view('livewire.notes.form');
+    }
+
+    public function rendering()
+    {
+        if ($this->decrypteContent) {
+            $this->content = decrypt($this->content);
+            $this->decrypteContent = false;
+        }
     }
 
     public function mount($noteId = null)
@@ -40,24 +55,22 @@ class Form extends Component
             $this->content = $note->content;
         }
     }
-    public function updatedTitle()
-    {
-        $this->validateOnly('title', [
-            'title' => 'required|string|max:255',
-        ]);
-    }
+
     public function save()
     {
+
         $this->validate();
         $note = Note::updateOrCreate(
             ['id' => $this->noteId],
             [
                 'title' => $this->title,
-                'content' => $this->content,
+                'content' => encrypt($this->content),
+                'only_author' => $this->onlyAuthor ?? false,
                 'user_id' => auth()->id(),
             ]
         );
         if ($note->wasRecentlyCreated) {
+            $this->head = 'ویرایش یادداشت';
             toast()
                 ->success('یادداشت با موفقیت ایجاد شد')
                 ->push();
@@ -66,6 +79,6 @@ class Form extends Component
                 ->success('یادداشت با موفقیت بروزرسانی شد')
                 ->push();
         }
-        $this->reset(['title', 'content']);
+        $this->noteId = $note->id;
     }
 }

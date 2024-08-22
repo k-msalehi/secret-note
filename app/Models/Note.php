@@ -15,6 +15,12 @@ class Note extends Model
         'user_id',
         'only_author',
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+        
+    }
+
     public function scopeAllowedToSee(Builder $query)
     {
         $query->where('user_id', auth()->id())->orWhere('only_author', false);

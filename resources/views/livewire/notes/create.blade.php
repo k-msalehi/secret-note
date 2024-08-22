@@ -1,3 +1,3 @@
 <div>
-    <livewire:notes.form />
+    <livewire:notes.form head="افزودن یادداشت" />
 </div>
