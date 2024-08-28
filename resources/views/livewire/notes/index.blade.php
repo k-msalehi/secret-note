@@ -9,7 +9,7 @@
             <thead>
                 <tr>
                     <th scope="col">شناسه</th>
-                    <th scope="col">نویسنده</th>
+                    <th scope="col">زمان ایجاد</th>
                     <th scope="col">عنوان</th>
                     <th scope="col">لینک مشاهده</th>
                 </tr>
@@ -18,7 +18,7 @@
                 @foreach ($notes as $note)
                 <tr>
                     <td><a href="{{route('notes.edit', $note->id)}}">{{ $note->id }}</a></td>
-                    <td><a href="{{route('notes.edit', $note->id)}}">{{ $note->user->name }}</a></td>
+                    <td><a title="{{$note->created_at}}" href="{{route('notes.edit', $note->id)}}"> {{ \Carbon\Carbon::parse($note->created_at)->diffForhumans() }}</a></td>
                     <td><a href="{{route('notes.edit', $note->id)}}">{{ $note->title }}</a></td>
                     <td>
                         <input readonly dir="ltr" type="text" value="{{route('notes.show', $note->id)}}">
